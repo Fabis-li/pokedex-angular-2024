@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class PokeApiService {
+  
 
   private readonly url: string = 'https://pokeapi.co/api/v2/pokemon';
 
@@ -17,5 +18,11 @@ export class PokeApiService {
 
   public selecionarDetalhesPorUrl(url: string): Observable<any>{
     return this.http.get<any>(url);
+  }
+
+  public selecionarDetalhesPorId(id: number) {
+    const urlCompleto = '${this.url}/${id}';
+
+    return this.http.get<any>(urlCompleto);
   }
 }

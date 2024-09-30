@@ -2,7 +2,12 @@
     <div class="row justify-content-center g-3">
 
         <div *ngFor="let pokemon of pokemons" class="col-10 col-md-6 col-lg-4 col-xl-3 mt-4">
+
             <div class="app-card-pokemon card">
+                <a 
+                    class="stretched-link" 
+                    [title]="'Detalhes de ' +  pokemon.nome"
+                    [routerLink]="['/detalhes' , pokemon.id]" ></a>
                 <div class="card-header border-bottom-0 bg-transparent text-center">
                     <label class="card-title fs-5 fw-bold">{{ pokemon.nome }}</label>
 
