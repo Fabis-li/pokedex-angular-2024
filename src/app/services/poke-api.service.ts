@@ -12,7 +12,9 @@ export class PokeApiService {
 
   constructor(private http: HttpClient) { }
 
-  public selecionarTodos():Observable<any>{
+  public selecionarTodos(offset: number = 0):Observable<any>{
+    const urlCompleto = `${this.url}?offset=${offset}`;
+
     return this.http.get(this.url);
   }
 
@@ -21,7 +23,7 @@ export class PokeApiService {
   }
 
   public selecionarDetalhesPorId(id: number) {
-    const urlCompleto = '${this.url}/${id}';
+    const urlCompleto = `${this.url}/${id}`;
 
     return this.http.get<any>(urlCompleto);
   }
