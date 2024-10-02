@@ -4,39 +4,23 @@ import { Pokemon } from '../../models/pokemon';
 import { PokeApiService } from '../../services/poke-api.service';
 import { converterParaTitleCase } from '../../utils/converter-para-title-case';
 import { TipoPokemon } from '../../models/tipo-pokemon';
-import { NgClass, NgForOf } from '@angular/common';
+import { NgClass, NgForOf, NgIf } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { mapearTipoPokemon } from '../../utils/mapear-tipo-pokemon';
+import { CardPokemonComponent } from "./card-pokemon/card-pokemon.component";
+import { BuscaComponent } from "../busca/busca.component";
 
 @Component({
   selector: 'app-listagem',
   standalone: true,
-  imports: [NgForOf, NgClass, RouterLink],
+  imports: [NgForOf, NgClass, NgIf, RouterLink, CardPokemonComponent, BuscaComponent],
   templateUrl: './listagem.component.html',
-  styleUrl: './listagem.component.scss'
+  
 })
 export class ListagemComponent implements OnInit {
-  public pokemons: Pokemon[];
+  public pokemons: Pokemon[];  
 
-  public coresBackgroundTipo: coresBackgroundTipo = {    
-    Normal: 'fundo-tipo-normal',     
-    Fire: 'fundo-tipo-fogo',
-    Water: 'fundo-tipo-agua',
-    Electric: 'fundo-tipo-eletrico',
-    Ice: 'fundo-tipo-gelo',
-    Grass: 'fundo-tipo-grama',
-    Bug: 'fundo-tipo-inseto',
-    Poison: 'fundo-tipo-veneno',
-    Flying: 'fundo-tipo-voador',
-    Ground: 'fundo-tipo-terra',
-    Rock: 'fundo-tipo-pedra',
-    Fighting: 'fundo-tipo-lutador',
-    Psychic: 'fundo-tipo-psiquico',
-    Ghost: 'fundo-tipo-fantasma',
-    Dark: 'fundo-tipo-sombrio',
-    Fairy: 'fundo-tipo-fada',
-    Steel: 'fundo-tipo-aco',      
-  };
+  public buscaRealizada: boolean = false;
 
   private offsetPaginacao: number;
 
@@ -51,6 +35,21 @@ export class ListagemComponent implements OnInit {
 
   public buscarMaisResultados(): void {
     this.offsetPaginacao += 20;
+    this.obterPokemons();
+  }
+
+  public filtrarPokemons(textoFiltro:string):void {
+    this.buscaRealizada = true;
+    this.pokemons = this.pokemons.filter(p => {
+      return p.nome.includes(textoFiltro);
+    })
+  }
+
+  public limparFiltro():void {
+    this.buscaRealizada = false;
+
+    this.pokemons = [];
+
     this.obterPokemons();
   }
 
