@@ -2,10 +2,6 @@
 
     <app-busca class="mt-4" (pesquisaFeita)="filtrarPokemons($event)" (limpezaFiltro)="limparFiltro()"></app-busca>
 
-    <div *ngIf="buscaRealizada" class="d-flex justify-content-center my-2">
-        <button class="btn btn-lg btn-outline-primary rounded-4">Limpar Resultados</button>
-    </div>
-
     <div class="row justify-content-center g-3 mt-2">
 
         <div *ngFor="let pokemon of pokemons" class="col-10 col-md-6 col-lg-4 col-xl-3 mt-4">
@@ -15,10 +11,12 @@
     </div>
 
     <div *ngIf="!buscaRealizada" class="d-flex justify-content-center mt-4">
-        <button 
-             
-            class="btn btn-lg btn-primary px-5 rounded-5" 
-            (click)="buscarMaisResultados()">Carregar mais resultados</button>
+        <button
+          (click)="buscarMaisResultados()"
+          class="btn btn-lg btn-primary px-5 rounded-5"
+          >
+            Carregar mais resultados
+        </button>
     </div>
 
 </main>

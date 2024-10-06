@@ -15,10 +15,10 @@ import { BuscaComponent } from "../busca/busca.component";
   standalone: true,
   imports: [NgForOf, NgClass, NgIf, RouterLink, CardPokemonComponent, BuscaComponent],
   templateUrl: './listagem.component.html',
-  
+
 })
 export class ListagemComponent implements OnInit {
-  public pokemons: Pokemon[];  
+  public pokemons: Pokemon[];
 
   public buscaRealizada: boolean = false;
 
@@ -31,10 +31,11 @@ export class ListagemComponent implements OnInit {
 
   public ngOnInit(): void {
     this.obterPokemons();
-  }  
+  }
 
   public buscarMaisResultados(): void {
-    this.offsetPaginacao += 20;
+    this.offsetPaginacao +=20;
+
     this.obterPokemons();
   }
 
@@ -58,19 +59,18 @@ export class ListagemComponent implements OnInit {
       const arrayResultados = res.results as any [];
 
       for(let resultado of arrayResultados) {
-        this.pokeApiService.selecionarDetalhesPorUrl(resultado.url).subscribe((objDetalhes: any) => {
-          const pokemon = this.mapearPokemon(objDetalhes);
+        this.pokeApiService
+          .selecionarDetalhesPorUrl(resultado.url)
+          .subscribe((objDetalhes: any) => {
+            const pokemon = this.mapearPokemon(objDetalhes);
 
           this.pokemons.push(pokemon);
         });
       }
-      
+
       this.pokemons.sort((p) => p.id);
     });
   }
-
-
-
 
   private mapearPokemon(obj: any): Pokemon {
     return {
@@ -81,5 +81,5 @@ export class ListagemComponent implements OnInit {
     };
   }
 
- 
+
 }

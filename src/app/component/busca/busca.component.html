@@ -1,20 +1,19 @@
 <div class="row justify-content-center gap-3 px-3">
-    <input 
+    <input
         #textoBusca
-        placeholder="Qual pokémon deseja buscar?" 
-        class="col-9 rounded-4" 
+        placeholder="Qual pokémon deseja buscar?"
+        class="col-9 rounded-4"
         type="text"
     />
 
     <button (click)="onClick(textoBusca.value)" class="col btn btn-lg btn-primary rounded-4">Buscar</button>
 </div>
 
-<div *ngIf="buscaRealizada" class="d-flex justify-content-center-my-2">
-    <button 
+<div *ngIf="buscaRealizada" class="d-flex justify-content-center my-2">
+    <button
         (click)="onClickLimpar()"
         class="btn btn-lg btn-outline-primary rounded-4"
     >
         Limpar Resultados
     </button>
 </div>
- 

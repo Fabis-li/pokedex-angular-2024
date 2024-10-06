@@ -22,7 +22,7 @@
 
         <!-- CSS da Página de Detalhes -->
         <div class="col-lg text-center">
-            <h1>{{ detalhesPokemon?.nome }}</h1>
+            <h1>{{ detalhesPokemon.nome }}</h1>
             <div class="d-flex justify-content-center align-items-center gap-2 mt-4">
                 <span
                     *ngFor="let tipo of detalhesPokemon?.tipos"
@@ -35,11 +35,11 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item fs-5">
                         <span class="fw-semibold">Altura:</span>
-                        {{ detalhesPokemon?.altura}} cm
+                        {{ detalhesPokemon.altura}} cm
                     </li>
                     <li class="list-group-item fs-5">
                         <span class="fw-semibold">Peso:</span>
-                        {{detalhesPokemon?.peso}} kg
+                        {{detalhesPokemon.peso}} kg
                     </li>
                 </ul>
             </div>
