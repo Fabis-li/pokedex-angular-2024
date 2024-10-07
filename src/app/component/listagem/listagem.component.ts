@@ -9,6 +9,7 @@ import { RouterLink } from '@angular/router';
 import { mapearTipoPokemon } from '../../utils/mapear-tipo-pokemon';
 import { CardPokemonComponent } from "./card-pokemon/card-pokemon.component";
 import { BuscaComponent } from "../busca/busca.component";
+import { StatusFavoritoPokemon } from '../../models/status-favorito-pokemon';
 
 @Component({
   selector: 'app-listagem',
@@ -20,12 +21,15 @@ import { BuscaComponent } from "../busca/busca.component";
 export class ListagemComponent implements OnInit {
   public pokemons: Pokemon[];
 
+  public pokemonsFavoritos: Pokemon[];
+
   public buscaRealizada: boolean = false;
 
   private offsetPaginacao: number;
 
   constructor(private pokeApiService: PokeApiService){
     this.pokemons = [];
+    this.pokemonsFavoritos = [];
     this.offsetPaginacao = 0;
   }
 
@@ -42,7 +46,7 @@ export class ListagemComponent implements OnInit {
   public filtrarPokemons(textoFiltro:string):void {
     this.buscaRealizada = true;
     this.pokemons = this.pokemons.filter(p => {
-      return p.nome.includes(textoFiltro);
+      return p.nome.toLowerCase().includes(textoFiltro.toLowerCase());
     })
   }
 
@@ -52,6 +56,16 @@ export class ListagemComponent implements OnInit {
     this.pokemons = [];
 
     this.obterPokemons();
+  }
+
+  public alterarStatusFavorito(status: StatusFavoritoPokemon){
+    if(status.statusFavorito == true) {
+      this.pokemonsFavoritos.push(status.pokemon);
+    } else {
+      this.pokemonsFavoritos = this.pokemonsFavoritos.filter((p) => p.id != status.pokemon.id);
+    }
+
+    status.pokemon.favorito = !status.pokemon.favorito;
   }
 
   private obterPokemons(){
@@ -78,6 +92,7 @@ export class ListagemComponent implements OnInit {
       nome: converterParaTitleCase(obj.name),
       urlSprite: obj.sprites.other.dream_world.front_default,
       tipos: obj.types.map(mapearTipoPokemon),
+      favorito: this.pokemonsFavoritos.some((p) => p.id == obj.id),
     };
   }
 

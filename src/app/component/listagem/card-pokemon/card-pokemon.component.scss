@@ -4,7 +4,7 @@
     background: #c8c8e3bd;
     background: -webkit-linear-gradient(to bottom, #eedbde, #b2b1cc91);
     background: linear-gradient(to bottom, #f6eceeb1, #d2d1ea91);
-    
+
     transition: outline 200ms ease-in-out;
 
     &:hover {
@@ -15,4 +15,13 @@
 .app-img-pokemon {
     max-width: 200px;
     max-height: 200px;
+}
+
+.app-botao-favoritar {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  font-size: 27px;
 }
