@@ -121,7 +121,7 @@
         "deploy": {
           "builder": "angular-cli-ghpages:deploy",
           "options": {
-            "baseHref": "",
+            "baseHref": "https://fabis-li.github.io/pokedex-angular-2024/",
             "repo": "https://github.com/Fabis-li/pokedex-angular-2024.git"
           }
         }
