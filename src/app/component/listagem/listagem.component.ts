@@ -10,11 +10,13 @@ import { mapearTipoPokemon } from '../../utils/mapear-tipo-pokemon';
 import { CardPokemonComponent } from "./card-pokemon/card-pokemon.component";
 import { BuscaComponent } from "../busca/busca.component";
 import { StatusFavoritoPokemon } from '../../models/status-favorito-pokemon';
+import { PokemonsFavoritosComponent } from "./pokemons-favoritos/pokemons-favoritos.component";
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-listagem',
   standalone: true,
-  imports: [NgForOf, NgClass, NgIf, RouterLink, CardPokemonComponent, BuscaComponent],
+  imports: [NgForOf, NgClass, NgIf, RouterLink, CardPokemonComponent, BuscaComponent, PokemonsFavoritosComponent],
   templateUrl: './listagem.component.html',
 
 })
@@ -27,7 +29,7 @@ export class ListagemComponent implements OnInit {
 
   private offsetPaginacao: number;
 
-  constructor(private pokeApiService: PokeApiService){
+  constructor(private pokeApiService: PokeApiService, private localStorageService: LocalStorageService) {
     this.pokemons = [];
     this.pokemonsFavoritos = [];
     this.offsetPaginacao = 0;
@@ -35,6 +37,8 @@ export class ListagemComponent implements OnInit {
 
   public ngOnInit(): void {
     this.obterPokemons();
+
+    this.pokemonsFavoritos = this.localStorageService.obterFavoritos();
   }
 
   public buscarMaisResultados(): void {
@@ -66,6 +70,8 @@ export class ListagemComponent implements OnInit {
     }
 
     status.pokemon.favorito = !status.pokemon.favorito;
+
+    this.localStorageService.salvarFavoritos(this.pokemonsFavoritos);
   }
 
   private obterPokemons(){
